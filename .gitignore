@@ -1,0 +1,7 @@
+bin/
+obj/
+.vs/
+.idea/
+Debug/
+Release/
+**/*.csproj.user

@@ -1,0 +1,155 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    
+}
+<style>
+    .hero-header {
+        background: linear-gradient(rgba(248, 223, 173, 0.1), rgba(248, 223, 173, 0.1)), url(/img/hero-img.jpg);
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .text-primary {
+        color: #81c408 !important;
+    }
+
+    .text-secondary {
+        color: #ffb524 !important;
+    }
+
+    .carousel-item {
+        position: relative;
+    }
+
+        .carousel-item a {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 25px;
+            background: linear-gradient(rgba(255, 181, 36, 0.7), rgba(255, 181, 36, 0.7));
+        }
+
+    .carousel-control-next,
+    .carousel-control-prev {
+        width: 48px;
+        height: 48px;
+        border-radius: 48px;
+        border: 1px solid var(--bs-white);
+        background: var(--bs-primary);
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .carousel-control-next {
+        margin-right: 20px;
+    }
+
+    .carousel-control-prev {
+        margin-left: 20px;
+    }
+
+    .btn-primary {
+        background-color: #81c408;
+        color: white;
+    }
+
+</style>
+
+<div class="container-fluid py-5 mb-5 hero-header">
+    <div class="container py-5">
+        <div class="row g-5 align-items-center">
+            <div class="col-md-12 col-lg-7">
+                <h4 class="mb-3 text-secondary">100% đồ ăn organic</h4>
+                <h1 class="mb-5 display-3 text-primary">Thực phẩm organic</h1>
+                <div class="position-relative mx-auto">
+                    <form method="get" action="/Book/Search">
+                        <input name="name" class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill" type="text" placeholder="Tên sản phẩm">
+                        <button type="submit" class="btn btn-primary border-2 border-secondary position-absolute rounded-pill text-white h-100" style="top: 0; right: 25%;">Tìm kiếm ngay</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-5">
+                <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active rounded">
+                            <img src="img/hero-img-1.png" class="img-fluid w-100 h-100 bg-secondary rounded" alt="First slide">
+                            <a href="#" class="btn px-4 py-2 text-white rounded">Fruites</a>
+                        </div>
+                        <div class="carousel-item rounded">
+                            <img src="img/hero-img-2.jpg" class="img-fluid w-100 h-100 rounded" alt="Second slide">
+                            <a href="#" class="btn px-4 py-2 text-white rounded">Vesitables</a>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid pt-5">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Các loại sản phẩm</span></h2>
+    <div class="row px-xl-5 pb-3">
+
+        @foreach (var item in Model.Categories)
+        {
+            <div class="col-lg-3 col-md-5 col-sm-6 pb-1">
+                <a class="text-decoration-none" asp-page="/Book/Search" asp-route-cid="@item.CategoryId">
+                    <div class="cat-item d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid h-100" src="@item.Image" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h4>@item.CategoryName</h4>
+                            <small class="text-body">@item.Books.Where(x => x.Status.Value).ToList().Count books</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        }
+    </div>
+</div>
+<!-- Products Start -->
+<div class="container-fluid pt-5 pb-3">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Sản phẩm của chúng tôi</span></h2>
+    <div class="row px-xl-5">
+        @foreach (var item in Model.Book)
+        {
+            <div class="col-lg-3 col-md-5 col-sm-6 pb-1">
+                <div class="product-item bg-light mb-4">
+
+                    <div class="product-img position-relative overflow-hidden">
+                        <a asp-page="/Book/Detail" asp-route-id="@item.BookId"><img class="img-fluid w-100" src="@item.Image" alt=""></a>
+
+                    </div>
+                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">@item.Category.CategoryName</div>
+
+                    <div class="p-5 border border-secondary border-top-0 rounded-bottom">
+                        <h4>@item.Title</h4>
+                        <p>@item.Description</p>
+                        <div class="d-flex justify-content-between flex-lg-wrap">
+                            <p class="text-dark fs-8 fw-bold mb-0">Giá tiền: @item.Price VNĐ</p>
+                            <a href="/Cart?bookId=@item.BookId&handler=AddCart" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Thêm vào giỏ hàng</a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<!-- Products End -->
