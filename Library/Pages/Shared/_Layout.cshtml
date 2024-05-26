@@ -25,12 +25,12 @@
 <body>
     <header>
 
-        <div class="container-fluid">
+        <div class="container-fluid" style="margin-bottom:10px;">
             <div class="container topbar bg-primary d-none d-lg-block" style="padding:10px;">
                 <div class="d-flex justify-content-between">
                     <div class="top-info ps-3">
                         <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">Hòa lạc, Hà Nội</a></small>
-                        <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">caoquang139@gmail.com</a></small>
+                        <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">fityourfood@gmail.com</a></small>
                     </div>
                     <div class="top-link pe-3">
                         <a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a>
@@ -41,7 +41,7 @@
             </div>
             <div class="container px-0">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                    <a asp-page="/Index" class="navbar-brand"><h2 class="text-customer display-6">FIT YOUR FOOD</h2></a>
+                    <a asp-page="/Index" class="navbar-brand"><img class="" style="height: 100px;width:100px;" src="/img/logo.jpg" /></a>
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="fa fa-bars text-primary"></span>
                     </button>
@@ -49,9 +49,9 @@
                         <div class="navbar-nav mx-auto">
                             <a asp-page="/Index" class="nav-item nav-link active">Trang chủ</a>
                             <a asp-page="/Book/Search" class="nav-item nav-link">Cửa hàng</a>
-                            <a href="blog" class="nav-item nav-link">Bài viết</a>
+                             @* <a href="blog" class="nav-item nav-link">Bài viết</a> *@
 
-                            <a href="contact.html" class="nav-item nav-link">Liên hệ</a>
+                            <a asp-page="/Contact" class="nav-item nav-link">Liên hệ</a>
                         </div>
                         <div class="d-flex m-3 me-0">
 
@@ -81,7 +81,7 @@
                                     <a asp-page="Profile" class="dropdown-item">Hồ sơ người dùng</a>
                                     <a asp-page="Cart" class="dropdown-item">Giỏ hàng của tôi</a>
                                     <a asp-page="Order" class="dropdown-item">Lịch sử giao dịch</a>
-                                    <a asp-page="calory" class="dropdown-item">Tính calo</a>
+                                    <a asp-page="RealTimeChat" class="dropdown-item">Sử dụng AI</a>
                                     @if (Context.Session.GetString("role").Equals("admin"))
                                     {
                                         <a asp-page="/Admin/Dashboard" class="dropdown-item">Admin Page</a>
@@ -119,20 +119,21 @@
                         <div class="col-lg-3 col-md-12 mb-5 pr-3 pr-xl-5">
                         </div>
                         <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
-                            <h5 class="text-secondary text-uppercase mb-4">Get In Touch</h5>
-                            <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>Online</p>
-                            <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>tu di ma tim</p>
-                            <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>081273273</p>
+                            <h5 class="text-secondary text-uppercase mb-4">Liên lạc với chúng tôi</h5>
+                            <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>Hòa Lạc, Hà Nội</p>
+                            <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>fityourfood@gmail.com</p>
+                            <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>0779255842</p>
                         </div>
 
 
                         <div class="col-md-4 mb-5">
-                            <h5 class="text-secondary text-uppercase mb-4">Follow Us</h5>
+                            <h5 class="text-secondary text-uppercase mb-4">Theo dõi chúng tôi tại</h5>
                             <div class="d-flex">
-                                <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                                @* <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a> *@
+                                <a class="btn btn-primary btn-square mr-2" target="_blank" href="https://www.facebook.com/profile.php?id=61556708402571"><i class="fab fa-facebook-f"></i></a>
+                                @* <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a> *@
                                 <a class="btn btn-primary btn-square" href="#"><i class="fab fa-instagram"></i></a>
+
                             </div>
                         </div>
 

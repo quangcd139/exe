@@ -1,3 +1,4 @@
+
 using LibraryCore.Models;
 using LibraryCore.Repositories;
 using LibraryCore.UnitOfWork;
@@ -10,6 +11,7 @@ builder.Services.AddSession();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -27,7 +29,10 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapHub<Library.ChatHub>("/chat");
+//});
 app.MapRazorPages();
 app.UseSession();
 
