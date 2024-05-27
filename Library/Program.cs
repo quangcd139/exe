@@ -27,13 +27,15 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
-app.UseAuthorization();
-//app.UseEndpoints(endpoints =>
-//{
-//    endpoints.MapHub<Library.ChatHub>("/chat");
-//});
-app.MapRazorPages();
 app.UseSession();
+app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<Library.ChatHub>("chat-hub");
+});
+
+app.MapRazorPages();
+
 
 app.Run();

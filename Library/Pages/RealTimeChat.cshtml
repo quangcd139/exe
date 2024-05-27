@@ -1,6 +1,7 @@
 ﻿@page
 @model Library.Pages.RealTimeChatModel
 @{
+    string userName = (string)HttpContext.Session.GetString("username");
 }
 
 <div class="container">
@@ -8,7 +9,7 @@
         <label>Tên: </label>
         <input type="text" id="name" />
     </div>
-
+    <input type="text" id="username" value="@userName" />
     <div class="mt-5">
         <input type="text" id="message" />
         <input type="button" id="sendmessage" value="Gửi" />
@@ -19,34 +20,30 @@
         <ul id="discussion"></ul>
     </div>
 </div>
-
-  @* <script src="https://cdn.jsdelivr.net/npm/@microsoft/signalr@6.0.0/dist/cjs/index.min.js"></script> *@
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
 
 <script>
-    var li = document.createElement("li");
-    li.textContent = "qusdasdasd";
-    document.getElementById("discussion").appendChild(li);
-    // var connection = new signalR.HubConnectionBuilder().withUrl("/chat").build();
-    // connection.start().catch(function (err)){
-    //     return console.error(err.toString());
-    // }
-    // document.getElementById("sendmessage").addEventListener("click", function (event) {
-    //     var user = document.getElementById("name").value;
-    //     var message = document.getElementById("message").value;
+    var userName = document.getElementById("username").value;
+    console.log(userName);
+    var connection = new signalR.HubConnectionBuilder().withUrl("/chat-hub").build();
+    connection.start()
+        .then(() => console.log("connect success"))
+        .catch((err) => console.log(err));
+    document.getElementById("sendmessage").addEventListener("click", function (event) {
+        var user = document.getElementById("name").value;
+        var message = document.getElementById("message").value;
 
-    //     connection.invoke("SendMessage", user, message).catch(function (err)){
-    //         return console.error(err.toString());
-    //     }
+        connection.invoke("SendMessage", userName, message).catch(function (err) {
+            return console.error(err.toString());
+        })
+        event.preventDefault();
+    });
 
-    //     event.preventDefault();
-    // });
-
-    // connection.on("ReceiveMessage", function (user, message) {
-    //     var encodedMsg = user + ":" + message;
-    //     var li = document.createElement("li");
-    //     li.textContent = encodedMsg;
-
-    //     document.getElementById("discussion").appendChild(li);
-    // })
+    connection.on("ReceiveMessage", function (message) {
+        var encodedMsg = message;
+        var li = document.createElement("li");
+        li.textContent = encodedMsg;
+        document.getElementById("discussion").appendChild(li);
+    });
 
 </script>
