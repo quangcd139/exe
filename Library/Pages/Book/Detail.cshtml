@@ -8,9 +8,9 @@
     <div class="row px-xl-5">
         <div class="col-12">
             <nav class="breadcrumb bg-light mb-30">
-                <a class="breadcrumb-item text-dark" href="#">Home</a>
-                <a class="breadcrumb-item text-dark" href="#">Book</a>
-                <span class="breadcrumb-item active">Book Detail</span>
+                <a class="breadcrumb-item text-dark" asp-page="/index">Trang chủ</a>
+                <a class="breadcrumb-item text-dark" asp-page="/search">Cửa hàng</a>
+                <span class="breadcrumb-item active">Chi tiết sản phẩm</span>
             </nav>
         </div>
     </div>
@@ -42,22 +42,21 @@
                 </div>
                 <!--<h3 class="font-weight-semi-bold mb-4">$150.00</h3>-->
                 <p class="mb-4">@Model.Book.Introduction</p>
-                Publisher:<p class="mb-4">@Model.Book.Publisher</p>
-                Publication Date:<p class="mb-4">@Model.Book.PublicationDate</p>
+                 @* Publisher:<p class="mb-4">@Model.Book.Publisher</p> *@
+                Ngày bán:<p class="mb-4">@Model.Book.PublicationDate.ToString().Split(" ")[0]</p>
 
                 <div class="d-flex align-items-center mb-4 pt-2">
-                    <strong class="text-dark mr-3">Quantity:</strong>
+                    <strong class="text-dark mr-3">Số lượng:</strong>
                     <div class="input-group quantity mr-3" style="width: 130px;">
                         <input type="text" class="form-control bg-secondary border-0 text-center" value="1">
                     </div>
                     <a class="btn btn-primary px-3" asp-page="/Cart" asp-page-handler="AddCart" asp-route-bookId="@Model.Book.BookId">
-                        <i class="fa fa-shopping-cart mr-1"></i> Add To
-                        Cart
+                        <i class="fa fa-shopping-cart mr-1"></i> Thêm vào giỏ hàng
                     </a>
-                    <button class="btn btn-primary px-3">
-                        <i class="far fa-heart mr-1"></i> Add To
-                        Reservations List
-                    </button>
+                    @* <button class="btn btn-primary px-3">
+                    <i class="far fa-heart mr-1"></i> Add To
+                    Reservations List
+                    </button> *@
                 </div>
             </div>
         </div>
@@ -66,12 +65,12 @@
         <div class="col">
             <div class="bg-light p-30">
                 <div class="nav nav-tabs mb-4">
-                    <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Description</a>
-                    <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews (1)</a>
+                    <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Miêu tả</a>
+                    <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Đánh giá (1)</a>
                 </div>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="tab-pane-1">
-                        <h4 class="mb-3">Book Description</h4>
+                        <h4 class="mb-3">Miêu tả sản phẩm</h4>
                         <p>@Model.Book.Description</p>
                     </div>
                     <div class="tab-pane fade" id="tab-pane-2">
@@ -115,11 +114,11 @@
                     <div class="tab-pane fade" id="tab-pane-3">
                         <div class="row">
                             <div class="col-md-6">
-                                <h4 class="mb-4">1 review for "Dance with the Devil"</h4>
+                                <h4 class="mb-4">1 đánh giá cho "@Model.Book.Title"</h4>
                                 <div class="media mb-4">
-                                    <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                    <img src="~/img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
                                     <div class="media-body">
-                                        <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
+                                        <h6>Duy Tùng<small> - <i>01 Jan 2024</i></small></h6>
                                         <div class="text-primary mb-2">
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star"></i>
@@ -127,15 +126,15 @@
                                             <i class="fas fa-star-half-alt"></i>
                                             <i class="far fa-star"></i>
                                         </div>
-                                        <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.</p>
+                                        <p>Sản phẩm rất ngon và tuyệt vời</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <h4 class="mb-4">Leave a review</h4>
-                                <small>Your email address will not be published. Required fields are marked *</small>
+                                <h4 class="mb-4">Để lại đánh giá</h4>
+                                 @* <small>Your email address will not be published. Required fields are marked *</small> *@
                                 <div class="d-flex my-3">
-                                    <p class="mb-0 mr-2">Your Rating * :</p>
+                                    <p class="mb-0 mr-2">Đánh giá của bạn * :</p>
                                     <div class="text-primary">
                                         <i class="far fa-star"></i>
                                         <i class="far fa-star"></i>
@@ -146,11 +145,11 @@
                                 </div>
                                 <form>
                                     <div class="form-group">
-                                        <label for="message">Your Review *</label>
+                                        <label for="message">Cảm nhận của bạn *</label>
                                         <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
                                     </div>
                                     <div class="form-group mb-0">
-                                        <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
+                                        <input type="submit" value="Gửi" class="btn btn-primary px-3">
                                     </div>
                                 </form>
                             </div>

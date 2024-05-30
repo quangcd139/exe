@@ -14,7 +14,7 @@
         <div class="col-md-8 cart">
             <div class="title">
                 <div class="row">
-                    <div class="col"><h4><b>Shopping Cart</b></h4></div>
+                    <div class="col"><h4><b>Giả hàng của bạn</b></h4></div>
                     <div id="countitemleft" class="col align-self-center text-right text-muted">@Model.Carts.Count items</div>
                 </div>
             </div>
@@ -32,44 +32,47 @@
                             <a href="#" class="border px-1 mx-1 quantity">@item.Quantity</a>
                             <a class="btnAddQuantity" href="#" data-target="@item.CartId">+</a>
                         </div>
-                        <div class="col">&euro; @item.Book.Price <a asp-page="/Cart" asp-page-handler="DeleteCart" asp-route-cartId="@item.CartId" class="close">&#10005;</a></div>
+                        <div class="col"> @item.Book.Price.000 VND <a asp-page="/Cart" asp-page-handler="DeleteCart" asp-route-cartId="@item.CartId" class="close">&#10005;</a></div>
                         @{
                             total += item.Book.Price.Value * item.Quantity;
                         }
                     </div>
-                </div>
+                </div><br />
 
 
             }
 
-            <div class="back-to-shop"><a href="#">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
+            <div class="back-to-shop"><a href="#">&leftarrow;</a><span class="text-muted">Quay lại cửa hàng</span></div>
         </div>
         <div class="col-md-4 summary">
-            <div><h5><b>Summary</b></h5></div>
+            <div><h5><b>Tóm tắt</b></h5></div>
             <hr>
             <div class="row mb-3">
-                <div class="col" id="countitemright"/>ITEMS @Model.Carts.Count</div>
-                <div class="col text-right" id="itemprice">&euro; @total.ToString("F2")</div>
+                <div class="col" id="countitemright" />Số lượng sản phẩm: @Model.Carts.Count
             </div>
-            <form method="POST">
-                <p>Shipping</p>
-                <select class="w-100 p-2 mb-3" id="select-option" onchange="updateValue()">
-                    <option class="text-muted" value="5">Standard Delivery - &euro;5.00</option>
-                    <option class="text-muted" value="10">High Quality Delivery - &euro;10.00</option>
-                </select>
-                <p>Address</p>
-                <input required class="w-100 p-2 mb-3" asp-for="Address" placeholder="Enter your address">
-                <hr>
-                <div class="row" style="padding: 2vh 0;">
-                    <div class="col fw-bolder">TOTAL PRICE</div>
-                    <div id="total" class="col text-right fw-bolder">&euro;</div>
-                    <input type="hidden" id="totalhidden" asp-for="Total" value="" />
-                </div>
-                <button class="btn btn-primary w-100">CHECKOUT</button>
-            </form>
-
+            <div class="col text-right" id="itemprice"> @total.ToString("F2")0 VND</div>
         </div>
+        <form method="POST">
+            <p>Shipping</p>
+            <select class="w-100 p-2 mb-3" id="select-option" onchange="updateValue()">
+                <option class="text-muted" value="5">Phí giao hàng - 5.000 VND</option>
+                @* <option class="text-muted" value="10">High Quality Delivery - &euro;10.00</option> *@
+            </select>
+            <p>Địa chỉ</p>
+            <input required class="w-100 p-2 mb-3" asp-for="Address" placeholder="Nhập địa chỉ của bạn">
+            <p>Số điện thoại</p>
+            <input required class="w-100 p-2 mb-3" asp-for="Address" placeholder="Nhập số điện thoại của bạn">
+            <hr>
+            <div class="row" style="padding: 2vh 0;">
+                <div class="col fw-bolder">Tổng giá</div>
+                <div id="total" class="col text-right fw-bolder"></div>
+                <input type="hidden" id="totalhidden" asp-for="Total" value="" />
+            </div>
+            <button class="btn btn-primary w-100">Đặt hàng</button>
+        </form>
+
     </div>
+</div>
 
 
 <script>
@@ -79,14 +82,14 @@
     let total = document.getElementById("totalhidden")
     total.value = x.toFixed(2)
     console.log(total.value)
-    initialValueStr.innerHTML = "&euro; " + (x + parseFloat($("#select-option").val())).toFixed(2)
+    initialValueStr.innerHTML = (x + parseFloat($("#select-option").val())).toFixed(2) + "0 VND";
 
     function updateValue() {
         x = parseFloat($('#itemprice').text().split(' ')[1])
         let selectedValue = parseInt(document.getElementById("select-option").value);
         total.value = (x - 5 + selectedValue).toFixed(2)
         console.log(total.value)
-        document.getElementById("total").innerHTML = "&euro; " + (x + selectedValue).toFixed(2);
+        document.getElementById("total").innerHTML =  (x + selectedValue).toFixed(2)+"0 VND";
     }
 </script>
 <script>
@@ -133,15 +136,15 @@
                     if (data) {
                         if (data.quantity == 0) {
                             quantity.closest('.row.border-top.border-bottom').remove();
-                            $('#cartcounting').text($('#cartcounting').text()-1);
-                            $('#countitemleft').text($('#countitemleft').text()[0]-1 +" items")
+                            $('#cartcounting').text($('#cartcounting').text() - 1);
+                            $('#countitemleft').text($('#countitemleft').text()[0] - 1 + " items")
                             var countitemrighttext = $('#countitemright').text().split(' ');
                             var update = countitemrighttext[1] - 1
                             $('#countitemright').text("ITEMS " + update);
 
                         }
                         else {
-                        quantity.append(data.quantity);
+                            quantity.append(data.quantity);
                         }
                         var x = parseFloat($('#itemprice').text().split(' ')[1])
                         x = x - data.book.price
