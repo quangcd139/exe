@@ -332,10 +332,11 @@
                                     </li>`;
 
         chat.innerHTML += yourmess;
-        sendmessage.value = sendmessage.defaultValue;
-        connection.invoke("SendMessage", message).catch(function (err) {
+        connection.invoke("SendMessage", sendmessage.value).catch(function (err) {
             return console.error(err.toString());
         });
+        sendmessage.value = sendmessage.defaultValue;
+        
 
     }
 
@@ -351,6 +352,7 @@
         .catch((err) => console.log(err));
 
     connection.on("ReceiveMessage", function (message) {
+        console.log("receive" + message);
         var encodedMsg = message;
         console.log(encodedMsg);
         var system = `<li class="you">
@@ -361,7 +363,7 @@
                     </div>
                     <div class="triangle"></div>
                     <div class="message">
-                            `+ answer + `
+                                `+ message + `
                     </div>
                 </li>`;
         chat.innerHTML += system;
